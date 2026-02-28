@@ -15,8 +15,6 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
   })
 
   const json = await res.json().catch(() => ({}))
-  if (!res.ok) {
-    throw new Error(json?.message || 'Gagal kirim email')
-  }
+  if (!res.ok) throw new Error(json?.message || 'Gagal kirim email')
   return json
 }
