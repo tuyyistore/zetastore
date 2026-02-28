@@ -1,0 +1,15 @@
+{
+  "name": "zeta-store-nuxt-email-otp",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^3.12.4",
+    "@upstash/redis": "^1.34.3"
+  }
+}
