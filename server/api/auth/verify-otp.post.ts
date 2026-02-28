@@ -47,7 +47,6 @@ export default defineEventHandler(async (event) => {
     .filter(Boolean)
 
   const isAdmin = adminEmails.includes(email)
-
   const token = signSession({ email, isAdmin, iat: Date.now() }, secret)
 
   setCookie(event, 'zeta_session', token, {
