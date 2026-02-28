@@ -1,24 +1,32 @@
 <template>
-  <div class="card" style="max-width:420px;margin:0 auto">
-    <h1 style="margin:0 0 6px">Login</h1>
-    <p class="muted">Masuk pakai email dan OTP.</p>
+  <div class="wrap">
+    <div class="card loginCard">
+      <div class="top">
+        <div class="kicker">Email OTP</div>
+        <h1 class="title">Login</h1>
+        <p class="muted">Masuk pakai email dan OTP (berlaku 5 menit).</p>
+      </div>
 
-    <label class="lbl">Email</label>
-    <input v-model="email" class="inp" placeholder="you@example.com" />
+      <label class="lbl">Email</label>
+      <input v-model="email" class="inp" placeholder="you@example.com" />
 
-    <button class="btn" :disabled="loadingSend" @click="sendOtp">
-      {{ loadingSend ? 'Sending...' : 'Send OTP' }}
-    </button>
-
-    <div v-if="sent" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line)">
-      <label class="lbl">OTP</label>
-      <input v-model="otp" class="inp" placeholder="6 digit" />
-      <button class="btn" :disabled="loadingVerify" @click="verifyOtp">
-        {{ loadingVerify ? 'Verifying...' : 'Verify & Login' }}
+      <button class="btn full" :disabled="loadingSend" @click="sendOtp">
+        {{ loadingSend ? 'Sending...' : 'Send OTP' }}
       </button>
-    </div>
 
-    <p v-if="err" class="err">{{ err }}</p>
+      <div v-if="sent" class="otpBox">
+        <div class="otpHint">OTP sudah dikirim. Cek Inbox/Spam.</div>
+
+        <label class="lbl">OTP</label>
+        <input v-model="otp" class="inp" placeholder="6 digit" inputmode="numeric" />
+
+        <button class="btn full" :disabled="loadingVerify" @click="verifyOtp">
+          {{ loadingVerify ? 'Verifying...' : 'Verify & Login' }}
+        </button>
+      </div>
+
+      <p v-if="err" class="err">{{ err }}</p>
+    </div>
   </div>
 </template>
 
@@ -57,3 +65,35 @@ const verifyOtp = async () => {
   }
 }
 </script>
+
+<style scoped>
+.wrap{display:flex;justify-content:center;padding: 22px 0}
+.loginCard{width:100%;max-width:440px;padding: 18px}
+.top{padding-bottom: 10px}
+.kicker{
+  display:inline-flex;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  color: rgba(234,240,255,.75);
+  font-size: 12px;
+  font-weight: 900;
+}
+.title{margin: 10px 0 6px; font-size: 22px}
+.full{width:100%}
+.otpBox{
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+.otpHint{
+  font-size: 12px;
+  color: rgba(234,240,255,.65);
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  background: rgba(255,255,255,.02);
+  margin-bottom: 10px;
+}
+</style>
