@@ -1,31 +1,39 @@
 <template>
-  <div class="wrap">
-    <div class="card loginCard">
-      <div class="top">
-        <div class="kicker">Email OTP</div>
-        <h1 class="title">Login</h1>
-        <p class="muted">Masuk pakai email dan OTP (berlaku 5 menit).</p>
-      </div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-6">
+      <div class="card card-soft p-4 p-md-5">
+        <div class="badge-soft d-inline-flex align-items-center gap-2 mb-3">
+          <i class="bi bi-shield-lock-fill"></i>
+          AUTH
+        </div>
 
-      <label class="lbl">Email</label>
-      <input v-model="email" class="inp" placeholder="you@example.com" />
+        <h1 class="mb-1" style="font-weight: 900;">Login</h1>
+        <p class="text-muted mb-4">Masuk pakai email dan OTP.</p>
 
-      <button class="btn full" :disabled="loadingSend" @click="sendOtp">
-        {{ loadingSend ? 'Sending...' : 'Send OTP' }}
-      </button>
+        <label class="form-label text-muted">Email</label>
+        <input v-model="email" class="form-control mb-3" placeholder="you@example.com" />
 
-      <div v-if="sent" class="otpBox">
-        <div class="otpHint">OTP sudah dikirim. Cek Inbox/Spam.</div>
-
-        <label class="lbl">OTP</label>
-        <input v-model="otp" class="inp" placeholder="6 digit" inputmode="numeric" />
-
-        <button class="btn full" :disabled="loadingVerify" @click="verifyOtp">
-          {{ loadingVerify ? 'Verifying...' : 'Verify & Login' }}
+        <button class="btn btn-primary w-100" :disabled="loadingSend" @click="sendOtp">
+          {{ loadingSend ? 'Sending...' : 'Send OTP' }}
         </button>
-      </div>
 
-      <p v-if="err" class="err">{{ err }}</p>
+        <div v-if="sent" class="mt-4">
+          <div class="text-muted mb-2" style="font-size: 13px;">
+            OTP sudah dikirim. Cek Inbox/Spam.
+          </div>
+
+          <label class="form-label text-muted mt-2">OTP</label>
+          <input v-model="otp" class="form-control mb-3" placeholder="6 digit" inputmode="numeric" />
+
+          <button class="btn btn-primary w-100" :disabled="loadingVerify" @click="verifyOtp">
+            {{ loadingVerify ? 'Verifying...' : 'Verify & Login' }}
+          </button>
+        </div>
+
+        <div v-if="err" class="mt-3 text-danger" style="font-weight: 700;">
+          {{ err }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -65,35 +73,3 @@ const verifyOtp = async () => {
   }
 }
 </script>
-
-<style scoped>
-.wrap{display:flex;justify-content:center;padding: 22px 0}
-.loginCard{width:100%;max-width:440px;padding: 18px}
-.top{padding-bottom: 10px}
-.kicker{
-  display:inline-flex;
-  padding: 7px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.03);
-  color: rgba(234,240,255,.75);
-  font-size: 12px;
-  font-weight: 900;
-}
-.title{margin: 10px 0 6px; font-size: 22px}
-.full{width:100%}
-.otpBox{
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,.07);
-}
-.otpHint{
-  font-size: 12px;
-  color: rgba(234,240,255,.65);
-  padding: 10px 12px;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 16px;
-  background: rgba(255,255,255,.02);
-  margin-bottom: 10px;
-}
-</style>
