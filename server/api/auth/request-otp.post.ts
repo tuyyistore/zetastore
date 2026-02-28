@@ -26,12 +26,7 @@ export default defineEventHandler(async (event) => {
   const otp = makeOtp()
   const otpKey = `otp:${email}`
 
-  await kv.set(otpKey, {
-    otpHash: sha256(otp),
-    attempts: 0,
-    createdAt: Date.now()
-  }, { ex: OTP_TTL_SEC })
-
+  await kv.set(otpKey, { otpHash: sha256(otp), attempts: 0, createdAt: Date.now() }, { ex: OTP_TTL_SEC })
   await kv.set(cdKey, { ok: true }, { ex: COOLDOWN_SEC })
 
   const subject = 'Zeta Store OTP'
@@ -45,6 +40,5 @@ export default defineEventHandler(async (event) => {
   </div>`
 
   await sendEmail(email, subject, html)
-
   return { ok: true }
 })
